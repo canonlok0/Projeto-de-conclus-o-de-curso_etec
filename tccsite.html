@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EduFinanças</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #F5F7FA;
+            color: #1F2937;
+            scroll-behavior: smooth;
+        }
+
+        /* HEADER */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #123B63;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            color: #D4AF37;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* BANNER */
+
+        .banner {
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200') center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(93, 169, 233, 0.45);
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            width: 85%;
+        }
+
+        .banner-content h1 {
+            font-size: 80px;
+            margin-bottom: 25px;
+        }
+
+        .banner-content span {
+            color: #D4AF37;
+        }
+
+        .banner-content p {
+            font-size: 28px;
+        }
+
+        /* GERAL */
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            color: #123B63;
+            font-size: 50px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 20px;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            color: #123B63;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .card-content p {
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .card-content button {
+            margin-top: 20px;
+            border: none;
+            background: #123B63;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* MODAL */
+
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: white;
+            width: 100%;
+            max-width: 900px;
+            border-radius: 25px;
+            padding: 35px;
+            position: relative;
+        }
+
+        .fechar {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border: none;
+            background: #ff7675;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .modal-card {
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .modal-card h3 {
+            margin: 10px 0;
+        }
+
+        .modal-card p {
+            color: #555;
+        }
+
+        .emoji {
+            font-size: 50px;
+        }
+
+        /* CORES */
+
+        .azul {
+            background: #EAF2F8;
+        }
+
+        .verde {
+            background: #E8F6EF;
+        }
+
+        .roxo {
+            background: #F0ECF8;
+        }
+
+        /* JOGOS */
+
+        .games {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .game-card {
+            background: #EEF4F8;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .game-content {
+            padding: 20px;
+        }
+
+        .game-content h4 {
+            color: #2E7D5B;
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        /* SOBRE */
+
+        .about {
+            background: #E8F0F7;
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        .about h2 {
+            color: #123B63;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            max-width: 900px;
+            margin: auto;
+            line-height: 1.9;
+            font-size: 20px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #123B63;
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        .rotina-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .rotina-item {
+            background: #E8F0F7;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        .rotina-item:hover {
+            transform: scale(1.03);
+        }
+
+        .rotina-item.done {
+            background: #D9F0E3;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MODAL -->
+
+    <div id="modal">
+
+        <div class="modal-box">
+
+            <button class="fechar" onclick="fecharModal()">X</button>
+
+            <h2 id="tituloModal" style="color:#123B63;font-size:38px;text-align:center;"></h2>
+
+            <div id="conteudoModal"></div>
+
+        </div>
+
+    </div>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            Edu<span>Finanças</span>
+        </div>
+
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#atividades">Atividades</a>
+            <a href="#jogos">Jogos</a>
+            <a href="#sobre">Sobre</a>
+        </nav>
+
+    </header>
+
+    <!-- BANNER -->
+
+    <section class="banner" id="inicio">
+
+        <div class="overlay"></div>
+
+        <div class="banner-content">
+
+            <h1>
+                Organize sua <span>vida financeira</span>
+            </h1>
+
+            <p>
+                Informação, planejamento e controle para suas decisões financeiras.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ATIVIDADES -->
+
+    <section id="atividades">
+
+        <div class="section-title">
+            <h2>Educação Financeira</h2>
+            <p>Conteúdos para ajudar você a cuidar melhor do seu dinheiro.</p>
+        </div>
+
+        <div class="cards">
+
+            <!-- COORDENAÇÃO -->
+
+            <div class="card">
+
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200">
+
+                <div class="card-content">
+
+                    <h3>Controle Financeiro</h3>
+
+                    <p>
+                        Aprenda a organizar receitas, despesas e seu orçamento.
+                    </p>
+
+                    <button onclick="abrirFinanceiro()">
+                        Ver Conteúdo
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- SENSORIAL -->
+
+            <div class="card">
+
+                <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=1200">
+
+                <div class="card-content">
+
+                    <h3>Consumo Consciente</h3>
+
+                    <p>
+                        Entenda seus hábitos de consumo e tome decisões mais conscientes.
+                    </p>
+
+                    <button onclick="abrirConsumo()">
+                        Explorar
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- COMUNICAÇÃO -->
+
+            <div class="card">
+
+                <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?q=80&w=1200">
+
+                <div class="card-content">
+
+                    <h3>Planejamento Financeiro</h3>
+
+                    <p>
+                        Organize seus objetivos, prioridades e metas financeiras.
+                    </p>
+
+                    <button onclick="abrirPlanejamento()">
+                        Acessar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <section id="rotina">
+
+        <div class="section-title">
+            <h2>📊 Meu Planejamento Financeiro</h2>
+            <p>Acompanhe seus principais objetivos financeiros</p>
+        </div>
+
+        <div class="rotina-grid">
+
+            <div class="rotina-item">💰 Organizar receitas</div>
+            <div class="rotina-item">🧾 Registrar despesas</div>
+            <div class="rotina-item">📊 Revisar orçamento</div>
+            <div class="rotina-item">💳 Controlar cartões</div>
+            <div class="rotina-item">🎯 Acompanhar metas</div>
+            <div class="rotina-item">📈 Revisar investimentos</div>
+
+        </div>
+
+    </section>
+
+    <!-- JOGOS -->
+
+    <section id="jogos">
+
+        <div class="section-title">
+            <h2>Ferramentas Financeiras</h2>
+            <p>Ferramentas simples para melhorar sua organização financeira.</p>
+        </div>
+
+        <div class="games">
+
+            <div class="game-card">
+
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200">
+
+                <div class="game-content">
+
+                    <h4>Simulador de Orçamento</h4>
+
+                    <p>
+                        Organize suas receitas e despesas para visualizar seu orçamento.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="game-card">
+
+                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200">
+
+                <div class="game-content">
+
+                    <h4>Metas Financeiras</h4>
+
+                    <p>
+                        Defina objetivos e acompanhe seu progresso financeiro.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SOBRE -->
+
+    <section class="about" id="sobre">
+
+        <h2>
+            Mais controle sobre suas finanças
+        </h2>
+
+        <p>
+            O Universo TEA foi desenvolvido pensando no conforto visual,
+            inclusão e simplicidade para crianças e famílias.
+        </p>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 EduFinanças • Plataforma de Educação Financeira
+
+    </footer>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function abrirModal(titulo, conteudo) {
+
+            document.getElementById("modal").style.display = "flex";
+
+            document.getElementById("tituloModal").innerHTML = titulo;
+
+            document.getElementById("conteudoModal").innerHTML = conteudo;
+
+        }
+
+        function fecharModal() {
+
+            document.getElementById("modal").style.display = "none";
+
+        }
+
+        /* CONTEÚDOS FINANCEIROS */
+        const atividades = {
+
+            orcamento: {
+                titulo: "📊 Orçamento",
+                texto: "Organize suas receitas e despesas para entender melhor seu orçamento mensal.",
+                imagens: [],
+                video: "https://www.youtube.com/embed/SEU_VIDEO"
+            },
+
+            gastos: {
+                titulo: "🧾 Controle de Gastos",
+                texto: "Registre seus principais gastos e identifique onde é possível economizar.",
+                imagens: [],
+                video: "https://www.youtube.com/embed/SEU_VIDEO"
+            },
+
+            metas: {
+                titulo: "🎯 Metas Financeiras",
+                texto: "Defina objetivos financeiros e acompanhe o valor necessário para alcançá-los.",
+                imagens: [],
+                video: "https://www.youtube.com/embed/SEU_VIDEO"
+            },
+
+            planejamento: {
+                titulo: "📅 Planejamento",
+                texto: "Planeje seus próximos passos financeiros considerando suas prioridades e objetivos.",
+                imagens: [],
+                video: "https://www.youtube.com/embed/SEU_VIDEO"
+            }
+
+        };
+        function abrirAtividade(nome) {
+
+            const a = atividades[nome];
+
+            let html = `
+        <h2>${a.titulo}</h2>
+
+        <h3>📝 Texto</h3>
+        <p>${a.texto}</p>
+
+        <h3>🖼️ Imagens</h3>
+    `;
+
+            a.imagens.forEach(img => {
+                html += `<img src="${img}" style="width:100%;margin-bottom:15px;border-radius:10px;">`;
+            });
+
+            html += `
+        <h3>🎥 Vídeo</h3>
+
+        <iframe
+            width="100%"
+            height="315"
+            src="${a.video}"
+            frameborder="0"
+            allowfullscreen>
+        </iframe>
+    `;
+
+            abrirModal(a.titulo, html);
+
+        }
+        function abrirFinanceiro() {
+
+            abrirModal(
+                "Controle Financeiro",
+
+                `
+        <div class="modal-grid">
+
+            <div class="modal-card azul" onclick="abrirAtividade('orcamento')">
+                <div class="emoji">🧩</div>
+                <h3>Orçamento</h3>
+                <p>Organize receitas e despesas do seu mês.</p>
+            </div>
+
+            <div class="modal-card azul" onclick="abrirAtividade('gastos')">
+                <div class="emoji">🎨</div>
+                <h3>Controle de Gastos</h3>
+                <p>Identifique para onde seu dinheiro está indo.</p>
+            </div>
+
+            <div class="modal-card azul" onclick="abrirAtividade('metas')">
+                <div class="emoji">⚽</div>
+                <h3>Metas Financeiras</h3>
+                <p>Defina objetivos e acompanhe seu progresso.</p>
+            </div>
+
+            <div class="modal-card azul" onclick="abrirAtividade('planejamento')">
+                <div class="emoji">🧱</div>
+                <h3>Planejamento</h3>
+                <p>Organize prioridades e planeje seus próximos passos.</p>
+            </div>
+
+        </div>
+        `
+            );
+
+        }
+        function abrirConteudo(titulo) {
+
+            abrirModal(
+                titulo,
+
+                `
+        <div style="text-align:left">
+
+            <h3 style="color:#123B63;">📝 Texto</h3>
+
+            <textarea
+                style="width:100%;height:150px;padding:10px;border-radius:10px;margin-bottom:25px;"
+                placeholder="Digite aqui o texto da atividade..."></textarea>
+
+            <h3 style="color:#123B63;">🖼️ Imagens</h3>
+
+            <input type="text"
+                   placeholder="Link da imagem 1"
+                   style="width:100%;padding:10px;margin-bottom:10px;">
+
+            <input type="text"
+                   placeholder="Link da imagem 2"
+                   style="width:100%;padding:10px;margin-bottom:10px;">
+
+            <input type="text"
+                   placeholder="Link da imagem 3"
+                   style="width:100%;padding:10px;margin-bottom:25px;">
+
+            <h3 style="color:#123B63;">🎥 Vídeos</h3>
+
+            <input type="text"
+                   placeholder="Link do vídeo 1"
+                   style="width:100%;padding:10px;margin-bottom:10px;">
+
+            <input type="text"
+                   placeholder="Link do vídeo 2"
+                   style="width:100%;padding:10px;margin-bottom:20px;">
+
+            <button onclick="abrirFinanceiro()"
+                    style="background:#123B63;color:white;border:none;padding:12px 25px;border-radius:10px;cursor:pointer;">
+                ⬅ Voltar
+            </button>
+
+        </div>
+        `
+            );
+
+        }
+
+        /* CONSUMO CONSCIENTE */
+
+        function abrirConsumo() {
+
+            abrirModal(
+                "Consumo Consciente",
+
+                `
+        <div class="modal-grid">
+
+            <div class="modal-card roxo">
+                <div class="emoji">🖐️</div>
+                <h3>Necessidades e Desejos</h3>
+                <p>Aprenda a diferenciar necessidades de desejos antes de comprar.</p>
+            </div>
+
+            <div class="modal-card roxo">
+                <div class="emoji">🎵</div>
+                <h3>Compras Conscientes</h3>
+                <p>Compare preços e avalie antes de realizar uma compra.</p>
+            </div>
+
+            <div class="modal-card roxo">
+                <div class="emoji">🌈</div>
+                <h3>Comparação de Preços</h3>
+                <p>Pesquisar preços ajuda a tomar decisões melhores.</p>
+            </div>
+
+            <div class="modal-card roxo">
+                <div class="emoji">🧸</div>
+                <h3>Hábitos Financeiros</h3>
+                <p>Pequenas mudanças podem melhorar sua organização financeira.</p>
+            </div>
+
+        </div>
+        `
+            );
+
+        }
+
+        /* PLANEJAMENTO */
+
+        function abrirPlanejamento() {
+
+            abrirModal(
+                "Planejamento Financeiro",
+
+                `
+        <div class="modal-grid">
+
+            <div class="modal-card verde">
+                <div class="emoji">🛁</div>
+                <h3>Orçamento Mensal</h3>
+                <p>Organize suas entradas e saídas durante o mês.</p>
+            </div>
+
+            <div class="modal-card verde">
+                <div class="emoji">🍽️</div>
+                <h3>Despesas</h3>
+                <p>Acompanhe os gastos e identifique excessos.</p>
+            </div>
+
+            <div class="modal-card verde">
+                <div class="emoji">😊</div>
+                <h3>Metas</h3>
+                <p>Defina objetivos financeiros claros.</p>
+            </div>
+
+            <div class="modal-card verde">
+                <div class="emoji">🛌</div>
+                <h3>Reserva Financeira</h3>
+                <p>Planeje uma reserva para situações inesperadas.</p>
+            </div>
+
+        </div>
+        `
+            );
+
+        }
+        document.querySelectorAll(".rotina-item").forEach(item => {
+
+            item.addEventListener("click", () => {
+
+                item.classList.toggle("done");
+
+                // salva estado
+                localStorage.setItem(item.innerText, item.classList.contains("done"));
+
+            });
+
+            // recupera estado salvo
+            if (localStorage.getItem(item.innerText) === "true") {
+                item.classList.add("done");
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
